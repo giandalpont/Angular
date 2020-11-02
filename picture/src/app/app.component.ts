@@ -25,6 +25,9 @@ export class AppComponent {
   constructor(photoService: PhotoService) {
     photoService
       .listFromUser('flavio')
-      .subscribe(photos => this.photos = photos)
+      .subscribe(photos => {
+        // console.log(photos[0])
+        this.photos = photos
+      })
   }
 }
