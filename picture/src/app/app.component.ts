@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { PhotoService } from './photos/photo/photo.service';
 
@@ -8,26 +8,16 @@ import { PhotoService } from './photos/photo/photo.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Gian Dal Pont';
 
   photos: Object[] = [];
 
-  // constructor(http: HttpClient) {
-  //   http
-  //     .get<Object[]>('http://localhost:3000/flavio/photos')
-  //     .subscribe(
-  //       photos => this.photos = photos,
-  //       err => console.log(err.message)
-  //     );
-  // }
+  constructor(private photoService: PhotoService) {}
 
-  constructor(photoService: PhotoService) {
-    photoService
+  ngOnInit(): void {
+    this.photoService
       .listFromUser('flavio')
-      .subscribe(photos => {
-        // console.log(photos[0])
-        this.photos = photos
-      })
+      .subscribe(photos => this.photos = photos);
   }
 }
