@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -18,4 +19,9 @@ export class AppComponent {
       imgAlt: 'Natureza',
     },
   ];
+
+  constructor(http: HttpClient) {
+    console.log(http);
+  }
+
 }
