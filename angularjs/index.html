@@ -77,40 +77,46 @@
           </tr>
         </table>
         <hr>
-        <div class="row">
-          <div class="col-md-5">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
+        <form name="contatoForm">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
+                </div>
+                <input type="text" class="form-control" name="nome" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-required="true" ng-model="contato.nome">
               </div>
-              <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-model="contato.nome">
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
+            <div class="col-md-4">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
+                </div>
+                <input type="number" class="form-control" name="telefone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-required="true" ng-model="contato.telefone">
               </div>
-              <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-model="contato.telefone">
             </div>
-          </div>
-          <div class="col-md-3">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01">Operadoras</label>
+            <div class="col-md-3">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Operadoras</label>
+                </div>
+                <select class="custom-select" name="operadora" id="inputGroupSelect01" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras" ng-required="true">
+                  <option value="" selected disabled>Selecine...</option>
+                </select>
               </div>
-              <select class="custom-select" id="inputGroupSelect01" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
-                <option value="" selected disabled>Selecine...</option>
-              </select>
             </div>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-primary btn-block" type="button" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone" >Add contato</button>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-danger btn-block" type="button" ng-click="apagarContato(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar contato</button>
-          </div>
-        </div>        
+            <div class="col-md-12 alert alert-danger text-center" ng-show="contatoForm.$invalid">
+              <h4>Por favor preencha os campos!</h4>
+            </div>
+              
+            <div class="col-md-6">
+              <button class="btn btn-primary btn-block" type="button" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Add contato</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-danger btn-block" type="button" ng-click="apagarContato(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar contato</button>
+            </div>
+          </div>        
+        </form>
         <div class="alert-info">
           {{contato}}
         </div>
