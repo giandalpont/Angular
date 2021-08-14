@@ -16,13 +16,23 @@
     angular.module('listaTelefonica').controller('listaTelefonicaCtrl', function ($scope) {
       $scope.title = "Lista Telefonica"
 
-      $scope.listas = [{
+      $scope.contatos = [{
         nome: "João", telefone: "3333322344"
       },{
         nome: "Ana", telefone: "3333322344"
       },{
         nome: "Maria", telefone: "3333322344"
       }]
+
+      $scope.operadoras = [
+        {nome: 'Oi', codigo: 14},
+        {nome: 'Vivo', codigo: 15},
+        {nome: 'Tim', codigo: 20},
+      ]
+
+      $scope.apagarContato = function(listas){
+        $scope.contatos = listas.filter( row => !row.selecionado ? row : '');
+      }
 
       $scope.adicionarContato = function(contato) {
         // if(nome && telefone) {
@@ -31,10 +41,16 @@
         console.log(contato)
         if(contato) {
           // $scope.listas.push(angular.copy(contato));
-          $scope.listas.push(contato);
+          $scope.contatos.push(contato);
           delete $scope.contato
         }
       };
+
+      $scope.isContatoSelecionado = function (contatos) {
+        return contatos.some( function(row) {
+          return row.selecionado
+        })
+      }
     });
   </script>
 </head>
@@ -47,17 +63,22 @@
       <div class="col-md-12">
         <table class="table table-striped mt-3">
           <tr>
-            <th>Nome</th>
+            <th></th>
+            <th>Nome</th> 
             <th>Telefone</th>
+            <th>Operadora</th>
           </tr>
-          <tr ng-repeat="lista in listas">
-            <td>{{lista.nome}}</td>
-            <td>{{lista.telefone}}</td>
+          {{contato}}
+          <tr ng-repeat="contato in contatos" ng-class="{selecionado: contato.selecionado}">
+            <td><input type="checkbox" ng-model="contato.selecionado"></td>
+            <td>{{contato.nome}}</td>
+            <td>{{contato.telefone}}</td>
+            <td>{{contato.operadora.nome}}</td>
           </tr>
         </table>
         <hr>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-5">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
@@ -65,7 +86,7 @@
               <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-model="contato.nome">
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
@@ -73,8 +94,21 @@
               <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-model="contato.telefone">
             </div>
           </div>
-          <div class="col-md-12">
-            <button class="btn btn-primary btn-block" type="button" ng-click="adicionarContato(contato)" >Add contato</button>
+          <div class="col-md-3">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Operadoras</label>
+              </div>
+              <select class="custom-select" id="inputGroupSelect01" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras">
+                <option value="" selected disabled>Selecine...</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary btn-block" type="button" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone" >Add contato</button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-danger btn-block" type="button" ng-click="apagarContato(contatos)" ng-disabled="!isContatoSelecionado(contatos)">Apagar contato</button>
           </div>
         </div>        
         <div class="alert-info">
@@ -82,6 +116,7 @@
         </div>
       </div>
     </div>
+    <div ng-include="'footer.html'"></div>
   </div>
 </body>
 </html>

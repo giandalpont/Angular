@@ -2,3 +2,8 @@
     background-color: black;
     color: aliceblue;
 } */
+
+table .selecionado {
+    background-color: yellow !important;
+    font-weight: bold;
+}
