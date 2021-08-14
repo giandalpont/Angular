@@ -43,6 +43,7 @@
           // $scope.listas.push(angular.copy(contato));
           $scope.contatos.push(contato);
           delete $scope.contato
+          $scope.contatoForm.$setPristine();
         }
       };
 
@@ -85,14 +86,16 @@
                   <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
                 </div>
                 <input type="text" class="form-control" name="nome" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-required="true" ng-model="contato.nome">
+                <div class="invalid-feedback" style="display: inherit;" ng-show="contatoForm.nome.$invalid && contatoForm.nome.$dirty" >Campo é obrigatório</div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="input-group mb-3">
+            <div class="col-md-4 form-group has-error">
+              <div class="input-group  mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
                 </div>
                 <input type="number" class="form-control" name="telefone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-required="true" ng-model="contato.telefone">
+                <div class="invalid-feedback" style="display: inherit;" ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty" >Campo é obrigatório</div>
               </div>
             </div>
             <div class="col-md-3">
@@ -103,6 +106,7 @@
                 <select class="custom-select" name="operadora" id="inputGroupSelect01" ng-model="contato.operadora" ng-options="operadora.nome for operadora in operadoras" ng-required="true">
                   <option value="" selected disabled>Selecine...</option>
                 </select>
+                <div class="invalid-feedback" style="display: inherit;" ng-show="contatoForm.operadora.$invalid && contatoForm.operadora.$dirty" >Campo é obrigatório</div>
               </div>
             </div>
             <div class="col-md-12 alert alert-danger text-center" ng-show="contatoForm.$invalid">
