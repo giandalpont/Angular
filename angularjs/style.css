@@ -7,3 +7,11 @@ table .selecionado {
     background-color: yellow !important;
     font-weight: bold;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    min-height: 100vh;
+}

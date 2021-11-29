@@ -69,7 +69,6 @@
             <th>Telefone</th>
             <th>Operadora</th>
           </tr>
-          {{contato}}
           <tr ng-repeat="contato in contatos" ng-class="{selecionado: contato.selecionado}">
             <td><input type="checkbox" ng-model="contato.selecionado"></td>
             <td>{{contato.nome}}</td>
@@ -94,7 +93,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
                 </div>
-                <input type="number" class="form-control" name="telefone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required ng-required="true" ng-model="contato.telefone">
+                <input type="text" class="form-control" name="telefone" required ng-required="true" ng-model="contato.telefone">
                 <div class="invalid-feedback" style="display: inherit;" ng-show="contatoForm.telefone.$invalid && contatoForm.telefone.$dirty" >Campo é obrigatório</div>
               </div>
             </div>
@@ -121,9 +120,6 @@
             </div>
           </div>        
         </form>
-        <div class="alert-info">
-          {{contato}}
-        </div>
       </div>
     </div>
     <div ng-include="'footer.html'"></div>
